@@ -5,7 +5,7 @@ import 'exception.dart';
 import 'data_model.dart';
 
 // 创建一个 FlutterSecureStorage 实例
-final storage = FlutterSecureStorage(
+final secureStorage = FlutterSecureStorage(
   aOptions: const AndroidOptions(encryptedSharedPreferences: true),
   iOptions: const IOSOptions(accessibility: KeychainAccessibility.first_unlock),
 );
@@ -14,13 +14,13 @@ final storage = FlutterSecureStorage(
 class AuthInterceptor extends Interceptor {
   // 从本地获取 access token
   Future<String?> getATokenFromLocal() async {
-    String? token = await storage.read(key: 'access_token');
+    String? token = await secureStorage.read(key: 'access_token');
     return token;
   }
 
   // 从本地获取所有要添加的请求头
   Future<Map<String, String>?> getHeadersFromLocal() async {
-    String? headers = await storage.read(key: "headers");
+    String? headers = await secureStorage.read(key: "headers");
     if (headers == null) {
       return null;
     }
@@ -42,6 +42,7 @@ class AuthInterceptor extends Interceptor {
   ) async {
     // 1. 添加 access token
     String? accessToken = await getATokenFromLocal();
+    // print("添加token: $accessToken");
     if (accessToken != null && accessToken.isNotEmpty) {
       options.headers["Authorization"] = "Bearer $accessToken";
     }
@@ -85,10 +86,6 @@ class AuthInterceptor extends Interceptor {
           // print(
           //   "请求参数错误: ${err.response?.statusCode} , ${err.response?.data},${err.response?.data.runtimeType}",
           // );
-          // throw MyCustomException(
-          //   statusCode: err.response?.statusCode ?? 0,
-          //   message: "请求参数错误: ${err.response?.data}",
-          // );
           // 使用 reject 替换异常，阻断错误继续传播
           return handler.reject(
             HandledRequestException(
@@ -105,17 +102,13 @@ class AuthInterceptor extends Interceptor {
           // print(
           //   "缺少token,token错误,token过期: ${err.response?.statusCode} , ${err.response?.data}",
           // );
-          // throw MyCustomException(
-          //   statusCode: err.response?.statusCode ?? 0,
-          //   message: "缺少token,token错误,token过期: ${err.response?.data}",
-          // );
           return handler.reject(
             HandledRequestException(
               statusCode: err.response?.statusCode,
               uiErrMessage: UIErrMessage(
                 statusCode: err.response?.statusCode,
                 errorMessage: {
-                  "_": "缺少token,token错误,token过期: ${err.response?.data}",
+                  "_": "缺少token,token错误,token过期--->${err.response?.data}",
                 },
               ),
               requestOptions: err.requestOptions,
@@ -129,7 +122,7 @@ class AuthInterceptor extends Interceptor {
               statusCode: err.response?.statusCode,
               uiErrMessage: UIErrMessage(
                 statusCode: err.response?.statusCode,
-                errorMessage: {"_": "权限拒绝: ${err.response?.data}"},
+                errorMessage: {"_": "权限拒绝--->${err.response?.data}"},
               ),
               requestOptions: err.requestOptions,
             ),
@@ -141,16 +134,24 @@ class AuthInterceptor extends Interceptor {
               statusCode: err.response?.statusCode,
               uiErrMessage: UIErrMessage(
                 statusCode: err.response?.statusCode,
-                errorMessage: {"_": "服务器异常: ${err.response?.data}"},
+                errorMessage: {"_": "服务器异常"},
               ),
               requestOptions: err.requestOptions,
             ),
           );
         default:
-        // print("未知的请求出错：${err.response?.statusCode}");
+          // print("未知的请求出错：${err.response?.statusCode}");
+          return handler.reject(
+            HandledRequestException(
+              statusCode: err.response?.statusCode,
+              uiErrMessage: UIErrMessage(
+                statusCode: err.response?.statusCode,
+                errorMessage: {"_": "未知的请求出错1"},
+              ),
+              requestOptions: err.requestOptions,
+            ),
+          );
       }
-    } else {
-      // print("请求异常：${err.message}");
     }
     handler.next(err);
   }

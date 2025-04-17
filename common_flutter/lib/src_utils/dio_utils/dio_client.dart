@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'auth_interceptor.dart';
+import 'data_model.dart';
+import 'exception.dart';
 
 class DioClient {
   late final Dio _dio;
@@ -29,24 +31,27 @@ class DioClient {
   }
 
   /// 封装 GET 请求
-  Future<Response> get(
+  Future<ApiResponse> get(
     String path, {
     Map<String, dynamic>? queryParameters,
   }) async {
     try {
-      Response response = await _dio.get(
+      Response<dynamic> response = await _dio.get(
         path,
         queryParameters: queryParameters,
       );
-      return response;
+      return ApiResponse(isSuccess: true, payload: response.data);
+    } on HandledRequestException catch (e) {
+      // 处理请求异常
+      return ApiResponse(isSuccess: false, payload: e.uiErrMessage);
     } on DioException catch (e) {
-      // 此处可以根据错误类型进一步抛出自定义异常或错误信息
+      print("common_flutter未知异常: $e");
       return Future.error(e);
     }
   }
 
   /// 封装 POST 请求
-  Future<Response> post(
+  Future<ApiResponse> post(
     String path, {
     dynamic data,
     Map<String, dynamic>? queryParameters,
@@ -57,8 +62,12 @@ class DioClient {
         data: data,
         queryParameters: queryParameters,
       );
-      return response;
+      return ApiResponse(isSuccess: true, payload: response.data);
+    } on HandledRequestException catch (e) {
+      // 处理请求异常
+      return ApiResponse(isSuccess: false, payload: e.uiErrMessage);
     } on DioException catch (e) {
+      print("common_flutter未知异常: $e");
       return Future.error(e);
     }
   }

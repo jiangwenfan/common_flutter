@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(title: const Text('Plugin example app')),
         body: Center(
-          child: Column(
+          child: ListView(
             children: [Text('Running on: $_platformVersion\n'), DioWidget()],
           ),
         ),

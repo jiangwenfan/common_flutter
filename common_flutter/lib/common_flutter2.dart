@@ -13,3 +13,4 @@ export 'src_widgets/my_custom_widget.dart';
 export 'src_utils/dio_utils/dio_client.dart';
 export 'src_utils/dio_utils/exception.dart';
 export 'src_utils/dio_utils/data_model.dart';
+export 'src_utils/dio_utils/auth_interceptor.dart';

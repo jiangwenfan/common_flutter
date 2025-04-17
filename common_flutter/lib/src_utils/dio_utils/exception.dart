@@ -18,8 +18,8 @@ class HandledRequestException extends DioException {
   }) : statusCode = statusCode ?? 0,
        super(type: DioExceptionType.badResponse, error: uiErrMessage);
 
-  // TODO 格式化请求异常信息
+  // 格式化请求异常信息
   @override
   String toString() =>
-      'MyCustomException: $uiErrMessage, statusCode: $statusCode';
+      'HandledRequestException: $uiErrMessage, statusCode: $statusCode';
 }
