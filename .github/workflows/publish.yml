@@ -40,5 +40,5 @@ jobs:
           PUB_ACCESS_TOKEN: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
         run: |
           echo 'PUB_ACCESS_TOKEN=$PUB_ACCESS_TOKEN' > $HOME/.pub-cache/credentials.json
-          flutter pub publish --dry-run
-          flutter pub publish -f
+          cd common_flutter && flutter pub publish --dry-run
+          cd common_flutter && flutter pub publish -f
