@@ -13,6 +13,9 @@ For help getting started with Flutter development, view the
 [online documentation](https://docs.flutter.dev), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
 
+
+[pub.dev](https://pub.dev/packages/common_flutter)
+
 登陆完成后:
 ```
 // 写入token
