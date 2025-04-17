@@ -3,9 +3,9 @@ name: Publish to pub.dev
 on:
   push:
     tags:
-    # must align with the tag-pattern configured on pub.dev, often just replace
+      # must align with the tag-pattern configured on pub.dev, often just replace
       # {{version}} with [0-9]+.[0-9]+.[0-9]+*
-    - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v{{version}}'
+      - "v[0-9]+.[0-9]+.[0-9]+*" # tag-pattern on pub.dev: 'v{{version}}'
     # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
     # - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: '{{version}}'
     # If your repository contains multiple packages consider a pattern like:
@@ -23,21 +23,21 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-    - name: Setup Flutter
-      uses: subosito/flutter-action@v2
-      with:
-        flutter-version: '3.0.5'  # 指定你的 Flutter 版本
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: "3.0.5" # 指定你的 Flutter 版本
 
-    - name: Install dependencies
-      run: flutter pub get
+      - name: Install dependencies
+        run: cd common_flutter && flutter pub get
 
-    - name: Publish to Pub.dev
-      env:
-        PUB_ACCESS_TOKEN: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
-      run: |
-        echo 'PUB_ACCESS_TOKEN=$PUB_ACCESS_TOKEN' > $HOME/.pub-cache/credentials.json
-        flutter pub publish --dry-run
-        flutter pub publish -f
+      - name: Publish to Pub.dev
+        env:
+          PUB_ACCESS_TOKEN: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
+        run: |
+          echo 'PUB_ACCESS_TOKEN=$PUB_ACCESS_TOKEN' > $HOME/.pub-cache/credentials.json
+          flutter pub publish --dry-run
+          flutter pub publish -f
