@@ -1,3 +1,4 @@
+import 'package:common_flutter_example/demo_dio/widgets.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
@@ -32,7 +33,8 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       platformVersion =
-          await _commonFlutterPlugin.getPlatformVersion() ?? 'Unknown platform version';
+          await _commonFlutterPlugin.getPlatformVersion() ??
+          'Unknown platform version';
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -51,11 +53,11 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
+        appBar: AppBar(title: const Text('Plugin example app')),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [Text('Running on: $_platformVersion\n'), DioWidget()],
+          ),
         ),
       ),
     );

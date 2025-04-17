@@ -6,7 +6,14 @@ class DioWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [ElevatedButton(onPressed: () {}, child: Text("Dio请求get"))],
+      children: [
+        ElevatedButton(
+          onPressed: () {
+            print("dio请求get");
+          },
+          child: Text("Dio请求get"),
+        ),
+      ],
     );
   }
 }
