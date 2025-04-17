@@ -1,4 +1,5 @@
-import 'dio_client2.dart';
+// import 'dio_client2.dart';
+import 'package:common_flutter/common_flutter.dart';
 // import 'package:dio/dio.dart';
 
 // class ApiService {
@@ -65,7 +66,7 @@ class UserApi {
       final response = await _dioClient.get("/customers/");
       // 根据后端返回数据格式进行解析
       return ResponseFinalRes(status: true, data: response.data);
-    } on MyCustomException catch (e) {
+    } on HandledRequestException catch (e) {
       // print("自定义异常: ${e.message}");
       return ResponseFinalRes(status: false, data: e.message);
     } catch (e) {
@@ -91,7 +92,7 @@ class UserApi {
       //   // e.toString()
       //   return ResponseFinalRes(status: false, data: "请求失败");
       // }
-    } on MyCustomException catch (e) {
+    } on HandledRequestException catch (e) {
       // print("自定义异常: ${e.uiErrMessage}");
       return ResponseFinalRes(status: false, data: e.uiErrMessage);
     } catch (e) {

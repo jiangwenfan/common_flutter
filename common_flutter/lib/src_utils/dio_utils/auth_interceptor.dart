@@ -68,7 +68,7 @@ class AuthInterceptor extends Interceptor {
     // 第一个拦截器出错响应之后，第二个拦截器也会执行出错响应
     if (err.type == DioExceptionType.connectionTimeout ||
         err.type == DioExceptionType.receiveTimeout) {
-      print("网络连接超时，请稍后再试");
+      // print("网络连接超时，请稍后再试");
       return handler.reject(
         HandledRequestException(
           statusCode: err.response?.statusCode,
@@ -82,9 +82,9 @@ class AuthInterceptor extends Interceptor {
     } else if (err.response != null) {
       switch (err.response?.statusCode) {
         case 400:
-          print(
-            "请求参数错误: ${err.response?.statusCode} , ${err.response?.data},${err.response?.data.runtimeType}",
-          );
+          // print(
+          //   "请求参数错误: ${err.response?.statusCode} , ${err.response?.data},${err.response?.data.runtimeType}",
+          // );
           // throw MyCustomException(
           //   statusCode: err.response?.statusCode ?? 0,
           //   message: "请求参数错误: ${err.response?.data}",
@@ -102,9 +102,9 @@ class AuthInterceptor extends Interceptor {
           );
         // break;
         case 401:
-          print(
-            "缺少token,token错误,token过期: ${err.response?.statusCode} , ${err.response?.data}",
-          );
+          // print(
+          //   "缺少token,token错误,token过期: ${err.response?.statusCode} , ${err.response?.data}",
+          // );
           // throw MyCustomException(
           //   statusCode: err.response?.statusCode ?? 0,
           //   message: "缺少token,token错误,token过期: ${err.response?.data}",
@@ -123,7 +123,7 @@ class AuthInterceptor extends Interceptor {
           );
         // break;
         case 403:
-          print("权限拒绝: ${err.response?.statusCode} , ${err.response?.data}");
+          // print("权限拒绝: ${err.response?.statusCode} , ${err.response?.data}");
           return handler.reject(
             HandledRequestException(
               statusCode: err.response?.statusCode,
@@ -135,7 +135,7 @@ class AuthInterceptor extends Interceptor {
             ),
           );
         case 500:
-          print("服务器异常: ${err.response?.statusCode} , ${err.response?.data}");
+          // print("服务器异常: ${err.response?.statusCode} , ${err.response?.data}");
           return handler.reject(
             HandledRequestException(
               statusCode: err.response?.statusCode,
@@ -147,10 +147,10 @@ class AuthInterceptor extends Interceptor {
             ),
           );
         default:
-          print("未知的请求出错：${err.response?.statusCode}");
+        // print("未知的请求出错：${err.response?.statusCode}");
       }
     } else {
-      print("请求异常：${err.message}");
+      // print("请求异常：${err.message}");
     }
     handler.next(err);
   }

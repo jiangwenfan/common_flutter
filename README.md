@@ -6,3 +6,5 @@
 git tag v0.0.1
 (base) jason@jasonMacPro common_flutter % git push origin v0.0.1
 ```
+
+flutter run -d macos

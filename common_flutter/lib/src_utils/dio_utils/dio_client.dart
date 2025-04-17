@@ -26,7 +26,6 @@ class DioClient {
 
     // 添加 认证处理拦截器
     _dio.interceptors.add(AuthInterceptor());
-    // _dio.interceptors.add(LoggingInterceptor());
   }
 
   /// 封装 GET 请求
