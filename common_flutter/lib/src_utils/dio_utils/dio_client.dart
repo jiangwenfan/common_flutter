@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import './auth_interceptor.dart';
+import 'auth_interceptor.dart';
 
 class DioClient {
   late final Dio _dio;

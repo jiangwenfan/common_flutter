@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import './data_model.dart';
+import 'data_model.dart';
 
 // 这是一个处理过之后的请求异常
 class HandledRequestException extends DioException {
