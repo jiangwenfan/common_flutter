@@ -41,4 +41,4 @@ jobs:
         run: |
           echo 'PUB_ACCESS_TOKEN=$PUB_ACCESS_TOKEN' > $HOME/.pub-cache/credentials.json
           cd common_flutter && flutter pub publish --dry-run
-          cd common_flutter && flutter pub publish -f
+          flutter pub publish -f
