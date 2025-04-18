@@ -38,9 +38,6 @@ jobs:
         run: cd common_flutter && flutter pub get
 
       - name: Publish to Pub.dev1
-        # env:
-        #   PUB_ACCESS_TOKEN: ${{ secrets.PUB_DEV_ACCESS_TOKEN }}
-        #  echo 'PUB_ACCESS_TOKEN=$PUB_ACCESS_TOKEN' > $HOME/.pub-cache/credentials.json
         run: |
           cd common_flutter && flutter pub publish --dry-run
 
