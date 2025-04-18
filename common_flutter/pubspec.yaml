@@ -1,6 +1,6 @@
 name: common_flutter
 description: "该包用来封装经常用到的一些工具、公共组件等"
-version: 0.0.3 # 每次发布修改这里版本号
+version: 0.0.4 # 每次发布修改这里版本号
 homepage: https://github.com/jiangwenfan/common_flutter/
 
 environment:
